@@ -55,6 +55,7 @@ try:
         install_requires=[
             "mezzanine >= 3.1",
             "xhtml2pdf",
+            "pdfkit",
         ],
 
         classifiers=[

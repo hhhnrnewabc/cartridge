@@ -18,6 +18,7 @@ from mezzanine.conf import settings
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.views import render, set_cookie, paginate
 from mezzanine.utils.urls import next_url
+import pdfkit
 
 try:
     from xhtml2pdf import pisa
@@ -374,7 +375,9 @@ def invoice(request, order_id, template="shop/order_invoice.html",
         name = slugify("%s-invoice-%s" % (settings.SITE_TITLE, order.id))
         response["Content-Disposition"] = "attachment; filename=%s.pdf" % name
         html = get_template(template_pdf).render(context)
-        pisa.CreatePDF(html, response)
+        #pisa.CreatePDF(html, response)
+        options = { 'encoding': "UTF-8", }
+        response.content = pdfkit.from_string(html, False, options)
         return response
     return render(request, template, context)
 

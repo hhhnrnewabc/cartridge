@@ -185,6 +185,9 @@ class ProductImage(Orderable):
             value = ""
         return value
 
+    def __str__(self):
+        return self.__unicode__()
+
 
 class ProductOption(models.Model):
     """
@@ -198,6 +201,9 @@ class ProductOption(models.Model):
 
     def __unicode__(self):
         return "%s: %s" % (self.get_type_display(), self.name)
+
+    def __str__(self):
+        return self.__unicode__()
 
     class Meta:
         verbose_name = _("Product option")
@@ -247,6 +253,9 @@ class ProductVariation(with_metaclass(ProductVariationMetaclass, Priced)):
                 options.append(option)
         result = u"%s %s" % (str(self.product), u", ".join(options))
         return result.strip()
+
+    def __str__(self):
+        return self.__unicode__()
 
     def save(self, *args, **kwargs):
         """
@@ -452,6 +461,9 @@ class Order(SiteRelated):
     def __unicode__(self):
         return "#%s %s %s" % (self.id, self.billing_name(), self.time)
 
+    def __str__(self):
+        return self.__unicode__()
+
     def billing_name(self):
         return "%s %s" % (self.billing_detail_first_name,
                           self.billing_detail_last_name)
@@ -639,6 +651,9 @@ class SelectedProduct(models.Model):
     def __unicode__(self):
         return ""
 
+    def __str__(self):
+        return self.__unicode__()
+
     def save(self, *args, **kwargs):
         """
         Set the total price based on the given quantity. If the
@@ -716,6 +731,9 @@ class Discount(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def __str__(self):
+        return self.__unicode__()
 
     def all_products(self):
         """
